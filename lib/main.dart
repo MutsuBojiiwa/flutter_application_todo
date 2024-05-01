@@ -32,6 +32,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<String> todoList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -40,43 +41,35 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: ListView(
-        children: const <Widget>[
-          // *** 追加する部分 ***
-          // CardとListTileを使い、簡単に整ったUIを作成
-          Card(
+      body: ListView.builder(
+        itemCount: todoList.length,
+        itemBuilder: (context, index) {
+          return Card(
             child: ListTile(
-              title: Text('ニンジンを買う'),
+              title: Text(todoList[index]),
             ),
-          ),
-          Card(
-            child: ListTile(
-              title: Text('タマネギを買う'),
-            ),
-          ),
-          Card(
-            child: ListTile(
-              title: Text('ジャガイモを買う'),
-            ),
-          ),
-          Card(
-            child: ListTile(
-              title: Text('カレールーを買う'),
-            ),
-          ),
-        ],
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        onPressed: () async {
           // "push"で新規画面に遷移
-          Navigator.of(context).push(
+          // リスト追加画面から渡される値を受け取る
+          final newListText = await Navigator.of(context).push(
             MaterialPageRoute(builder: (context) {
               // 遷移先の画面としてリスト追加画面を指定
               return TodoAddPage();
             }),
           );
+          if (newListText != null) {
+            // キャンセルした場合は newListText が null となるので注意
+            setState(() {
+              // リスト追加
+              todoList.add(newListText);
+            });
+          }
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
