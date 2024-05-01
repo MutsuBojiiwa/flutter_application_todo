@@ -45,6 +45,12 @@ class _MyHomePageState extends State<MyHomePage> {
         itemCount: todoList.length,
         itemBuilder: (context, index) {
           return Card(
+            margin: const EdgeInsets.only(
+              top: 10,
+              right: 40,
+              bottom: 0,
+              left: 40,
+            ),
             child: ListTile(
               title: Text(todoList[index]),
             ),
