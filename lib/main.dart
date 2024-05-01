@@ -59,7 +59,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   title: Text(todoList[index]),
                   trailing: ElevatedButton(
                     onPressed: () {
-                      //処理を書く
+                      setState(() {
+                        todoList.removeAt(index);
+                      });
                     },
                     child: const Icon(Icons.delete),
                   ),
