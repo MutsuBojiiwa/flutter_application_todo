@@ -40,8 +40,31 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Text('Todo一覧画面'),
+      body: ListView(
+        children: const <Widget>[
+          // *** 追加する部分 ***
+          // CardとListTileを使い、簡単に整ったUIを作成
+          Card(
+            child: ListTile(
+              title: Text('ニンジンを買う'),
+            ),
+          ),
+          Card(
+            child: ListTile(
+              title: Text('タマネギを買う'),
+            ),
+          ),
+          Card(
+            child: ListTile(
+              title: Text('ジャガイモを買う'),
+            ),
+          ),
+          Card(
+            child: ListTile(
+              title: Text('カレールーを買う'),
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
