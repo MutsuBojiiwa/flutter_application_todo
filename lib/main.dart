@@ -41,21 +41,27 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: ListView.builder(
-        itemCount: todoList.length,
-        itemBuilder: (context, index) {
-          return Card(
-            margin: const EdgeInsets.only(
-              top: 10,
-              right: 40,
-              bottom: 0,
-              left: 40,
-            ),
-            child: ListTile(
-              title: Text(todoList[index]),
-            ),
-          );
-        },
+      body: Align(
+        alignment: Alignment.center,
+        child: SizedBox(
+          width: 800,
+          child: ListView.builder(
+            itemCount: todoList.length,
+            itemBuilder: (context, index) {
+              return Card(
+                margin: const EdgeInsets.only(
+                  top: 10,
+                  right: 40,
+                  bottom: 0,
+                  left: 40,
+                ),
+                child: ListTile(
+                  title: Text(todoList[index]),
+                ),
+              );
+            },
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
