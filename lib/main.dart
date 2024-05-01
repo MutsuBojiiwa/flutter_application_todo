@@ -32,7 +32,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<String> todoList = ['aaa','bbb'];
+  List<String> todoList = ['aaa', 'bbb'];
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +100,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-
 void _showDialog(BuildContext context, String todoText) {
   showDialog<void>(
     context: context,
@@ -114,18 +113,26 @@ void _showDialog(BuildContext context, String todoText) {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(todoText),
-                SizedBox(height: 20),
+                TextField(
+                  controller: TextEditingController(text: todoText),
+                  onChanged: (String value) {
+                    debugPrint(value);
+                    //   setState(() {
+                    //     _text = value;
+                    //   });
+                  },
+                ),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     ElevatedButton(
                       onPressed: () {},
-                      child: Text('更新'),
+                      child: const Text('更新'),
                     ),
                     ElevatedButton(
                       onPressed: () => Navigator.pop(context),
-                      child: Text('キャンセル'),
+                      child: const Text('キャンセル'),
                       // style: ElevatedButton.styleFrom(
                       //     foregroundColor: Colors.white,
                       //     backgroundColor: Theme.of(context).colorScheme.secondary),
