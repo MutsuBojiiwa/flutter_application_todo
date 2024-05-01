@@ -80,17 +80,17 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () async {
           // "push"で新規画面に遷移
           // リスト追加画面から渡される値を受け取る
-          final newListText = await Navigator.of(context).push(
+          final newTodoText = await Navigator.of(context).push(
             MaterialPageRoute(builder: (context) {
               // 遷移先の画面としてリスト追加画面を指定
               return TodoAddPage();
             }),
           );
-          if (newListText != null) {
+          if (newTodoText != null) {
             // キャンセルした場合は newListText が null となるので注意
             setState(() {
               // リスト追加
-              todoList.add(newListText);
+              todoList.add(newTodoText);
             });
           }
         },
