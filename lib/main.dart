@@ -56,6 +56,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   left: 40,
                 ),
                 child: ListTile(
+                  onTap: () {
+                    //処理を書く
+                    // debugPrint(todoList[index]);
+                    _showDialog(context, todoList[index]);
+                  },
                   title: Text(todoList[index]),
                   trailing: ElevatedButton(
                     onPressed: () {
@@ -93,4 +98,45 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+}
+
+
+void _showDialog(BuildContext context, String todoText) {
+  showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return GestureDetector(
+        onTap: () => Navigator.pop(context),
+        child: Dialog(
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(todoText),
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Text('更新'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: Text('キャンセル'),
+                      // style: ElevatedButton.styleFrom(
+                      //     foregroundColor: Colors.white,
+                      //     backgroundColor: Theme.of(context).colorScheme.secondary),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    },
+  );
 }
