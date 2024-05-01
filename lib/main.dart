@@ -32,7 +32,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<String> todoList = ['aaa','bbb'];
+  Map<int,String> todoMap = {1:'aaa',2:'bbb'};
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: SizedBox(
           width: 800,
           child: ListView.builder(
-            itemCount: todoList.length,
+            itemCount: todoMap.length,
             itemBuilder: (context, index) {
               return Card(
                 margin: const EdgeInsets.only(
@@ -56,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   left: 40,
                 ),
                 child: ListTile(
-                  title: Text(todoList[index]),
+                  title: Text(todoMap[index + 1]!),
                   trailing: ElevatedButton(
                     onPressed: () {
                       //処理を書く
@@ -83,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
             // キャンセルした場合は newListText が null となるので注意
             setState(() {
               // リスト追加
-              todoList.add(newListText);
+              todoMap[todoMap.length + 1] = newListText;
             });
           }
         },
