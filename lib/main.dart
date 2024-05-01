@@ -32,7 +32,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<String> todoList = [];
+  List<String> todoList = ['aaa','bbb'];
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +57,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 child: ListTile(
                   title: Text(todoList[index]),
+                  trailing: ElevatedButton(
+                    onPressed: () {
+                      //処理を書く
+                    },
+                    child: const Icon(Icons.delete),
+                  ),
                 ),
               );
             },
