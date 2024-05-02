@@ -32,7 +32,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<String> todoList = ['aaa', 'bbb'];
+  List<String> todoList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     _showDialog(context, todoList[index]).then((value) {
                       if (value != null) {
                         // ダイアログで入力された値を処理する
-                        debugPrint("入力された値: $value");
                         setState(() {
                           todoList[index] = value;
                         });
