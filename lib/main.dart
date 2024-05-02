@@ -59,7 +59,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   onTap: () {
                     //処理を書く
                     // debugPrint(todoList[index]);
-                    _showDialog(context, todoList[index]);
+                    _showDialog(context, todoList[index]).then((value) {
+                      if (value != null) {
+                        // ダイアログで入力された値を処理する
+                        debugPrint("入力された値: $value");
+                      }
+                    });
                   },
                   title: Text(todoList[index]),
                   trailing: ElevatedButton(
@@ -87,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
             }),
           );
           if (newTodoText != null) {
-            // キャンセルした場合は newListText が null となるので注意
+            // キャンセルした場合は newTodoText が null となる
             setState(() {
               // リスト追加
               todoList.add(newTodoText);
@@ -100,10 +105,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-void _showDialog(BuildContext context, String todoText) {
-  showDialog<void>(
+Future<String?> _showDialog(BuildContext context, String todoText) async {
+  // ダイアログを表示し、入力された値を取得するためにFutureを使用する
+  return await showDialog<String?>(
     context: context,
     builder: (BuildContext context) {
+      // ダイアログ内でテキストフィールドを制御するコントローラーを作成する
+      TextEditingController controller = TextEditingController(text: todoText);
+
       return GestureDetector(
         onTap: () => Navigator.pop(context),
         child: Dialog(
@@ -113,29 +122,25 @@ void _showDialog(BuildContext context, String todoText) {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                // ダイアログ内にテキストフィールドを表示する
                 TextField(
-                  controller: TextEditingController(text: todoText),
-                  onChanged: (String value) {
-                    debugPrint(value);
-                    //   setState(() {
-                    //     _text = value;
-                    //   });
-                  },
+                  controller: controller,
                 ),
                 const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                    // 更新ボタンが押された時、ダイアログを閉じて入力された値を返す
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context, controller.text);
+                      },
                       child: const Text('更新'),
                     ),
+                    // キャンセルボタンが押された時、ダイアログを閉じる
                     ElevatedButton(
                       onPressed: () => Navigator.pop(context),
                       child: const Text('キャンセル'),
-                      // style: ElevatedButton.styleFrom(
-                      //     foregroundColor: Colors.white,
-                      //     backgroundColor: Theme.of(context).colorScheme.secondary),
                     ),
                   ],
                 ),
